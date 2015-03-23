@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 /**
+ * 使用ListView的CHOICE_MODE_MULTIPLE模式,來實現多選效果
  * create by zhengjiong
  * Date: 2015-03-22
  * Time: 21:01
@@ -31,7 +32,7 @@ public class ListViewMultiChoiceActivity extends Activity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mAdapter.notifyDataSetChanged();
-                mActionBar.setTitle("已選擇:" + mListView.getCheckedItemCount());
+                updateSelectCount();
             }
         });
 
@@ -52,11 +53,33 @@ public class ListViewMultiChoiceActivity extends Activity{
         //actionBar.setCustomView(R.layout.custom_actionbar);
     }
 
+    /**
+     * 更新ActionBar顯示的條數
+     */
+    private void updateSelectCount() {
+        mActionBar.setTitle("已選擇:" + mListView.getCheckedItemCount());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.my, menu);
         return true;
+    }
+
+    /**
+     * onOptionsItemSelected執行之前會先調用此方法
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem menuItem = menu.findItem(R.id.action_all_select);
+        if (mAdapter.getCount() == mListView.getCheckedItemCount()) {
+            menuItem.setTitle("不全選");
+        } else {
+            menuItem.setTitle("全選");
+        }
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -65,11 +88,35 @@ public class ListViewMultiChoiceActivity extends Activity{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_all_select) {
+            if (mAdapter.getCount() == mListView.getCheckedItemCount()) {
+                unSelectAll();
+            } else {
+                selectAll();
+            }
+            updateSelectCount();
+            //必須要加上notifyDataSetChanged,不然unSelectAll的時候,有些item還是被選擇狀態
+            mAdapter.notifyDataSetChanged();
             return true;
         }else if (id == android.R.id.home) {
             ListViewMultiChoiceActivity.this.finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 清除全選
+     */
+    private void unSelectAll(){
+        mListView.clearChoices();
+    }
+
+    /**
+     * 全選
+     */
+    private void selectAll() {
+        for (int i = 0, count = mAdapter.getCount(); i < count; i++) {
+            mListView.setItemChecked(i, true);
+        }
     }
 }

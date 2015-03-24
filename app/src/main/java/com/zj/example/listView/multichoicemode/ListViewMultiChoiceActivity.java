@@ -63,7 +63,7 @@ public class ListViewMultiChoiceActivity extends Activity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my, menu);
+        getMenuInflater().inflate(R.menu.select_all, menu);
         return true;
     }
 

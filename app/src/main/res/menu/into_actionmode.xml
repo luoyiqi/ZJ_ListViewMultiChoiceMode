@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ListViewMultiChoiceModalActivity" >
+
+    <item android:id="@+id/action_into_actionmode"
+        android:title="進入多選模式"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+</menu>

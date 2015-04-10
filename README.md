@@ -1,0 +1,5 @@
+兩種方式實現ListView多選效果
+
+1.使用ListView的CHOICE_MODE_MULTIPLE模式
+
+2.使用ListView的CHOICE_MODE_MULTIPLE_MODAL,配合ActionBar的ActionMode實現Listview多選效果

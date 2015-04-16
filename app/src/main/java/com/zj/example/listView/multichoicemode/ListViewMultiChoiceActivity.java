@@ -27,6 +27,7 @@ public class ListViewMultiChoiceActivity extends Activity{
         setContentView(R.layout.listview_multichoice_layout);
 
         mListView = (ListView) findViewById(R.id.listview);
+        //設置成多選模式
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,6 +58,7 @@ public class ListViewMultiChoiceActivity extends Activity{
      * 更新ActionBar顯示的條數
      */
     private void updateSelectCount() {
+        //mListView.getCheckedItemCount()獲取當前被選擇的條數
         mActionBar.setTitle("已選擇:" + mListView.getCheckedItemCount());
     }
 

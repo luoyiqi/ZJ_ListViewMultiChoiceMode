@@ -85,14 +85,13 @@ public class ListViewMultiChoiceModalActivity extends Activity{
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 mMode = mode;
                 getMenuInflater().inflate(R.menu.select_all, menu);
-                mode.setTitle("已選擇:0");
                 Log.i("zj", "onCreateActionMode");
                 return true;
             }
 
             /**
              * 1.此方法會在onCreateActionMode之後調用,
-             * 2.每次點擊menu之前會調用一次,
+             * 2.每次點擊menu之前也會調用一次,
              * 3.mMode.invalidate()也會調用此方法
              * @param mode
              * @param menu
@@ -183,8 +182,16 @@ public class ListViewMultiChoiceModalActivity extends Activity{
      * 進入ActionMode
      */
     private void actionModeStart() {
+        /**
+         * 這裡執行后會依次執行
+         * onCreateActionMode(),onPrepareActionMode(),onItemCheckedStateChanged
+         * title會被設置成"已選擇:1",
+         * 然後再clearChoice之後不會執行onItemCheckedStateChanged方法,只能清除掉選擇的第0行狀態
+         * 必須重新設置setTitle="已選擇:0"
+         */
         mListView.setItemChecked(0, true);
         mListView.clearChoices();
+        mMode.setTitle("已選擇:0");//
     }
 
     @Override

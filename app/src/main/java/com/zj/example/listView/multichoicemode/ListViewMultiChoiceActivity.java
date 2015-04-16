@@ -27,7 +27,7 @@ public class ListViewMultiChoiceActivity extends Activity{
         setContentView(R.layout.listview_multichoice_layout);
 
         mListView = (ListView) findViewById(R.id.listview);
-        //設置成多選模式
+        //設置成CHOICE_MODE_MULTIPLE多選模式
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

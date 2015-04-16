@@ -34,6 +34,7 @@ public class ListViewMultiChoiceModalActivity extends Activity{
 
 
         mListView = (ListView) findViewById(R.id.listview);
+        //設置成CHOICE_MODE_MULTIPLE_MODAL多選模式
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
 
         mAdapter = new ListAdapter(this, mListView);
